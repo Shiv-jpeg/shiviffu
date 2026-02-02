@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Only For You</title>
+
+<style>
+:root{
+  --bg:#fff6f8;
+  --glass:rgba(255,255,255,.75);
+  --accent:#e11d48;
+  --text:#2a0a14;
+}
+
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* -------- SECTIONS -------- */
+section{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .9s ease, transform .9s ease;
+}
+
+section.visible{
+  opacity:1;
+  transform:none;
+}
+
+.card{
+  max-width:560px;
+  width:100%;
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border-radius:28px;
+  padding:40px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.15);
+}
+
+/* -------- TEXT -------- */
+h1{
+  color:var(--accent);
+  margin-bottom:14px;
+  font-weight:600;
+}
+
+p{
+  font-size:18px;
+  line-height:1.7;
+  margin-bottom:16px;
+}
+
+/* -------- BUTTONS -------- */
+button{
+  border:none;
+  border-radius:999px;
+  padding:14px 26px;
+  font-size:17px;
+  cursor:pointer;
+  background:var(--accent);
+  color:white;
+}
+
+/* -------- IMAGE -------- */
+img{
+  width:100%;
+  border-radius:22px;
+  margin:22px 0;
+  cursor:pointer;
+}
+
+.hidden{display:none}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 BACKGROUND MUSIC -->
+<audio id="bgm" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- INTRO -->
+<section id="intro" class="visible">
+  <div class="card">
+    <h1>Hey 💖</h1>
+    <p>
+      This isn’t a website.  
+      It’s a small piece of how I feel.
+    </p>
+    <button onclick="start()">Continue</button>
+  </div>
+</section>
+
+<!-- PASSWORD -->
+<section id="lock">
+  <div class="card">
+    <h1>Only For You</h1>
+    <p>
+      Some things aren’t meant for everyone.<br>
+      Just for the one who knows.
+    </p>
+    <input id="pwd" type="password" placeholder="A word we know"
+      style="width:100%;padding:14px;border-radius:999px;border:1px solid #f5b3c7">
+    <br><br>
+    <button onclick="unlock()">Enter</button>
+    <p id="err" style="color:#b91c1c"></p>
+  </div>
+</section>
+
+<!-- PAGE 1 -->
+<section class="story">
+  <div class="card">
+    <h1>Ifrah Mishra</h1>
+    <p>
+      Some people don’t arrive loudly.<br>
+      They arrive gently — and stay.
+    </p>
+    <img src="couple.jpg" onclick="next()">
+  </div>
+</section>
+
+<!-- PAGE 2 -->
+<section class="story">
+  <div class="card">
+    <p>
+      Loving you feels calm.<br>
+      Not exciting chaos — but quiet certainty.
+    </p>
+  </div>
+</section>
+
+<!-- PAGE 3 -->
+<section class="story">
+  <div class="card">
+    <h1>You’re my home</h1>
+    <p>
+      Not a place.  
+      Not walls.
+    </p>
+    <p>
+      You’re where my mind rests  
+      and my heart feels safe.
+    </p>
+  </div>
+</section>
+
+<!-- PAGE 4 -->
+<section class="story">
+  <div class="card">
+    <p>
+      With you, silence isn’t awkward.  
+      It’s comfortable.
+    </p>
+  </div>
+</section>
+
+<!-- PAGE 5 -->
+<section class="story">
+  <div class="card">
+    <h1>Will you be my Valentine?</h1>
+    <button onclick="next()">Yes</button>
+  </div>
+</section>
+
+<!-- FOREVER -->
+<section class="story">
+  <div class="card" id="forever">
+    <h1>Forever</h1>
+    <p>
+      I don’t promise perfection.<br>
+      I promise presence.
+    </p>
+    <p>
+      If there’s a future —  
+      I hope it has you in it.
+    </p>
+  </div>
+</section>
+
+<script>
+const music = document.getElementById("bgm");
+const sections = document.querySelectorAll("section");
+
+function start(){
+  music.volume = 0.25;
+  music.play();
+  showSection(1);
+}
+
+function unlock(){
+  if(pwd.value === "shiviffu"){
+    showSection(2);
+  }else{
+    err.innerText = "Not quite.";
+  }
+}
+
+function next(){
+  const current = [...sections].findIndex(s => s.classList.contains("visible"));
+  showSection(current + 1);
+}
+
+function showSection(index){
+  sections.forEach(s => s.classList.remove("visible"));
+  if(sections[index]){
+    sections[index].classList.add("visible");
+    sections[index].scrollIntoView({behavior:"smooth"});
+  }
+}
+</script>
+
+</body>
+</html>
